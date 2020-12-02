@@ -193,8 +193,7 @@ if ser.isOpen():
           print("Error communicating...")
           exit
 
-        print(json.dumps({'V1': v1, 'V2': v2, 'Q1': q1, 'Q2': q2, 'P1': p1, 'P2': p2, 'T1': t1, 'T2': t2, 'T3': t3, 'dT': dt, 'P': p
-, 'E': e, 'DateTime': datetime}, sort_keys=True, indent=4))
+        print(json.dumps({'V1': v1, 'V2': v2, 'Q1': q1, 'Q2': q2, 'P1': p1, 'P2': p2, 'T1': t1, 'T2': t2, 'T3': t3, 'dT': dt, 'P': p, 'E': e, 'DateTime': datetime}, sort_keys=True, indent=4))
 
     except Exception as e1:
         print("error communicating...: " + str(e1))

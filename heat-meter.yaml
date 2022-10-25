@@ -1,0 +1,92 @@
+substitutions:
+  dev_name: heat-meter
+  friendly_name: "Heat Meter"
+
+packages:
+  ota: !include includes/ota.yaml
+  api: !include includes/api.yaml
+  web: !include includes/web.yaml
+  time: !include includes/time.yaml
+  dentra: !include includes/dentra.yaml
+
+esphome:
+  name: ${dev_name}
+  platform: ESP32
+  board: esp-wrover-kit
+#  includes:
+#    - includes/aswega.h
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/joshuaspence/esphome-stream-server
+      ref: sensor
+
+ethernet:
+  id: eth
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO17_OUT
+  phy_addr: 0
+  domain: .maydayoffice.kz
+#  use_address: 192.168.75.131
+
+logger:
+
+uart:
+  id: uart_port
+  rx_pin: GPIO34
+  tx_pin: GPIO16
+  baud_rate: 4800
+  data_bits: 8
+  parity: ODD
+  stop_bits: 1
+  debug:
+    direction: BOTH
+#    dummy_receiver: true
+    after:
+#      delimiter: "\n"
+      timeout: 100ms
+#    sequence:
+#      - lambda: UARTDebug::log_string(direction, bytes);
+
+stream_server:
+  id: ss
+  uart_id: uart_port
+  port: 6638
+
+button:
+  - platform: restart
+    name: "${friendly_name} Restart"
+
+binary_sensor:
+  - platform: status
+    name: "${friendly_name} Status"
+    id: status_id
+    entity_category: diagnostic
+
+  - platform: stream_server
+    stream_server: ss
+    name: "${friendly_name} Remote Connection Status"
+    id: rconn_id
+    entity_category: diagnostic
+    device_class: connectivity
+#    on_press:
+#      - switch.turn_on: green_led
+#    on_release:
+#      - switch.turn_off: green_led
+
+text_sensor:
+  - platform: template
+    name: "${friendly_name} IP Address"
+    entity_category: diagnostic
+    icon: "mdi:ip-network"
+    lambda: return { id(eth).get_ip_address().str() };
+    update_interval: 300s
+
+#custom_component:
+#- lambda: |-
+#    auto HeatMeter = new Aswega(id(uart_port), id(rconn_id), 19855);
+#    App.register_component(HeatMeter);
+#    return {HeatMeter};

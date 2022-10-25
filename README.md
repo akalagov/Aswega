@@ -4,13 +4,13 @@
 
 Aswega_SA942_manual.pdf - паспорт на счетчик. На страницах 47-53 идет описание взаимодействия с прибором и форматов отправляемых/получаемых данных
 
-[aswega.py](blob/main/aswega.py) - вполне себе рабочий скрипт на питоне
+[aswega.py](aswega.py) - вполне себе рабочий скрипт на питоне
 
-[aswega.vbs](blob/main/aswega.vbs) - вполне себе рабочий скрипт на VB-Script
+[aswega.vbs](aswega.vbs) - вполне себе рабочий скрипт на VB-Script
 
-[heat-meter.yaml](blob/main/aswega.vbs) - начальные наметки конфигурации ESPHome, из которой будет вызываться custom component
+[heat-meter.yaml](aswega.vbs) - начальные наметки конфигурации ESPHome, из которой будет вызываться custom component
 
-[aswega.h](blob/main/aswega.h) - начальные наметки custom component, содранные с какого-то подобного проекта
+[aswega.h](aswega.h) - начальные наметки custom component, содранные с какого-то подобного проекта
 
 https://github.com/rjehangir/struct - реализованная на C++ питоновская функция unpack, куски из нее возможно пригодятся
 
